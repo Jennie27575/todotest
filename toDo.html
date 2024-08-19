@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.4.38/vue.global.js"></script>
+    <style>
+        
+        .top {
+            background-color: #777777;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .toptt{
+            text-align: center;
+            color: #ffffff;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .input{
+            margin-top: 20px;
+            /* 居中 */
+            text-align: center;
+        }
+        .input input{
+            width: 75%;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid #777777;
+        }
+        .input button{
+            width: 20%;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            margin-left: 10px;
+        }
+        .display{
+            margin-top: 20px;
+            border: 1px solid #777777;
+            border-radius: 10px;
+            height: 75vh;
+        }
+        .display ul li{
+            list-style: none;
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #000000;
+            width: 100%;
+        }
+        .display button{
+            /* 靠右 */
+            position: absolute;
+            right: 24px;
+            border: none;
+            border-radius: 5px;
+            width: 50px;
+            height: 30px;
+            
+        }
+        .display input{
+            margin-right: 20px;
+        }
+        .strikethrough {
+            text-decoration: line-through;
+            color: #777777;
+
+        }
+                
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="top">
+            <p class="toptt">ToDo</p>
+        </div>
+        <div class="input">
+            <input type="text" v-model="newTodo">
+            <button @click="addTodo">添加</button>
+        </div>
+        <div class="display">
+            <ul>
+                <li v-for="(todo, index) in todos" :key="index">
+                    <input type="checkbox" v-model="todo.completed">
+                    <span :class="{ strikethrough: todo.completed }">{{ todo.text }}</span>
+                    <button @click="deleteTodo(index)">删除</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+        
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    todos: [
+                       
+                    ],
+                    newTodo: ''
+                }
+            },
+            methods: {
+                addTodo() {
+                    if (this.newTodo.trim() !== '') {
+                        this.todos.push({ text: this.newTodo, completed: false });
+                        this.newTodo = '';
+                    }
+                },
+                deleteTodo(index) {
+                    this.todos.splice(index, 1);
+                }
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+</html>

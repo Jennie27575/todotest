@@ -8,7 +8,7 @@
     <style>
         
         .top {
-            background-color: #777777;
+            background-color: #a0a0a0;
             padding: 10px;
             border-radius: 10px;
             height: 13vh;
@@ -28,24 +28,26 @@
         }
         .input input{
             width: 75%;
-            height: 4vh;
+            height: 36px;
             border-radius: 10px;
-            border: 1px solid #777777;
+            border: 1px solid #a0a0a0;
             font-size: 16px;
             
         }
         .input button{
             width: 20%;
-            height: 4.7vh;
+            height: 41px;
             border-radius: 10px;
             border: none;
             margin-left: 10px;
+            background-color: #a0a0a0;
+            color: #fff;
         }
         .display{
             margin-top: 1.6vh;
-            border: 1px solid #777777;
+            border: 1px solid #a0a0a0;
             border-radius: 10px;
-            height: 65vh;
+            height: 62vh;
             margin-bottom: 4vh;
         }
         .display ul li{
@@ -80,7 +82,7 @@
         }
         .strikethrough {
             text-decoration: line-through;
-            color: #777777;
+            color: #a0a0a0;
 
         }
         .finish {
@@ -91,16 +93,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 6vh;
+            height: 50px;
             border-radius: 10px;
             padding: 0 10px 0 10px;
-            border: 1px solid #777777;
+            border: 1px solid #a0a0a0;
             position: fixed;
-            bottom: 1.3vh;
+            bottom: 20px;
             left: 7px;
             right: 7px;
             /* width: 100%; */
-            background-color: #777777;
+            background-color: #a0a0a0;
             color: #ffffff;
             font-size: 16px;
         }
@@ -113,7 +115,7 @@
         </div>
         
         <div class="input">
-            <input type="text" v-model="newTodo">
+            <input type="text" v-model="newTodo" placeholder="输入以添加待办事件">
             <button @click="addTodo">添&nbsp;&nbsp;&nbsp;加</button>
         </div>
         

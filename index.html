@@ -42,13 +42,14 @@
             margin-top: 20px;
             border: 1px solid #777777;
             border-radius: 10px;
-            height: 75vh;
+            height: 100vh;
+            margin-bottom: 60px;
         }
         .display ul li{
             list-style: none;
             margin-top: 20px;
             font-size: 20px;
-            font-weight: bold;
+            /* font-weight: bold; */
             color: #000000;
             width: 100%;
 
@@ -78,6 +79,27 @@
             color: #777777;
 
         }
+        .finish {
+            margin-top: 15px;
+            /* margin-left: 10px;
+            margin-right: 10px; */
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            border-radius: 10px;
+            padding: 0 10px 0 10px;
+            border: 1px solid #777777;
+            position: fixed;
+            bottom: 0px;
+            left: 7px;
+            right: 7px;
+            /* width: 100%; */
+            background-color: #777777;
+            color: #ffffff;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -85,15 +107,17 @@
         <div class="top">
             <p class="toptt" @click="clearAll">ToDo</p>
         </div>
+        
         <div class="input">
             <input type="text" v-model="newTodo">
             <button @click="addTodo">添&nbsp;&nbsp;&nbsp;加</button>
         </div>
+        
         <div class="display">
             <ul>
                 <li v-for="(todo, index) in todos" :key="index">
                     <input type="checkbox" v-model="todo.completed" @change="saveTodos">
-                    <span :class="{ strikethrough: todo.completed }">{{ todo.text }}</span>
+                    <span :class="{ strikethrough: todo.completed }" id="todods">{{ todo.text }}</span>
                     <button @click="deleteTodo(index)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                         <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/>
@@ -101,12 +125,18 @@
                 </li>
             </ul>
         </div>
+        <div class="finish">
+            <span>已完成:{{finished}}</span>
+            <span>未完成:{{unfinished}}</span>
+        </div>
     </div>
 
     <script>
         const app = Vue.createApp({
             data() {
                 return {
+                    finished: 0,
+                    unfinished: 0,
                     todos: [],
                     newTodo: ''
                 }
@@ -117,28 +147,43 @@
                         this.todos.push({ text: this.newTodo, completed: false });
                         this.newTodo = '';
                         this.saveTodos();
+                        this.changeFinished();
                     }
                 },
                 deleteTodo(index) {
                     this.todos.splice(index, 1);
                     this.saveTodos();
+                    this.changeFinished();
+
                 },
                 saveTodos() {
                     localStorage.setItem('todos', JSON.stringify(this.todos));
+                    this.changeFinished();
+
                 },
                 loadTodos() {
                     const storedTodos = localStorage.getItem('todos');
                     if (storedTodos) {
                         this.todos = JSON.parse(storedTodos);
                     }
+                    this.changeFinished();
+
                 },
                 clearAll(){
                     this.todos = [];
                     this.saveTodos();
+                    this.changeFinished();
+                    
+
+                },
+                changeFinished(){
+                    this.finished = this.todos.filter(todo => todo.completed).length;
+                    this.unfinished = this.todos.filter(todo => !todo.completed).length;
                 }
             },
             mounted() {
                 this.loadTodos();
+                
             }
         });
         app.mount('#app');

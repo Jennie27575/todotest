@@ -8,18 +8,19 @@
     <style>
         
         .top {
-            background-color: #a0a0a0;
+            background-color: rgb(233, 240, 249);
             padding: 10px;
-            border-radius: 30px;
+            border-radius: 20px;
             height: 100px;
+            margin-top: 50px;
             
         }
         .toptt{
             
             text-align: center;
-            color: #ffffff;
+            color: rgb(136, 135, 139);
             font-size: 30px;
-            font-weight: bold;
+            font-weight: bolder;
         }
         .input{
             margin-top: 20px;
@@ -30,8 +31,9 @@
             width: 75%;
             height: 36px;
             border-radius: 10px;
-            border: 1px solid #a0a0a0;
+            border: 1px solid #cecece;
             font-size: 16px;
+            color: rgb(136, 135, 139);
             
         }
         .input button{
@@ -40,22 +42,23 @@
             border-radius: 10px;
             border: none;
             margin-left: 10px;
-            background-color: #a0a0a0;
-            color: #fff;
+            background-color: rgb(233, 240, 249);
+            color: rgb(136, 135, 139);
         }
         .display{
             margin-top: 20px;
-            border: 1px solid #a0a0a0;
+            border: 1px solid #cecece;
             border-radius: 10px;
-            height: 62vh;
-            margin-bottom: 4vh;
+            height: 100%;
+            margin-bottom: 100px;
+            min-height: 300px;
         }
         .display ul li{
             list-style: none;
             margin-top: 18px;
             font-size: 20px;
             /* font-weight: bold; */
-            color: #000000;
+            color: #3d3d3d;
             width: 100%;
         
 
@@ -94,17 +97,30 @@
             justify-content: space-between;
             align-items: center;
             height: 50px;
-            border-radius: 20px;
+            border-radius: 10px;
             padding: 0 10px 0 10px;
-            border: 1px solid #a0a0a0;
+            border: 1px solid #cecece;
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 7px;
             right: 7px;
             /* width: 100%; */
-            background-color: #a0a0a0;
-            color: #ffffff;
+            background-color: rgb(233, 240, 249);
+            color: rgb(136, 135, 139);
             font-size: 16px;
+            border: none;
+        }
+        .bottom{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background-color: #ffffff;
+        }
+        #empty{
+            color: #a0a0a0;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -121,19 +137,25 @@
         
         <div class="display">
             <ul>
+                <li v-if="todos.length === 0" id="empty"><span>当前列表空空如也<br>快添加一些待办事件吧!</span></li>
                 <li v-for="(todo, index) in todos" :key="index">
                     <input type="checkbox" v-model="todo.completed" @change="saveTodos">
-                    <span :class="{ strikethrough: todo.completed }" id="todods">{{ todo.text }}</span>
-                    <button @click="deleteTodo(index)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                        <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/>
-                      </svg></button>
+                    <span :class="{ strikethrough: todo.completed }">{{ todo.text }}</span>
+                    <button @click="deleteTodo(index)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/>
+                        </svg>
+                    </button>
                 </li>
             </ul>
         </div>
-        <div class="finish">
-            <span>已完成:{{finished}}</span>
-            <span>未完成:{{unfinished}}</span>
+        
+        <div class="bottom">
+            <div class="finish">
+                <span>已完成:{{finished}}</span>
+                <span>未完成:{{unfinished}}</span>
+            </div>
         </div>
     </div>
 
